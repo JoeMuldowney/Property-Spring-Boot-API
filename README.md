@@ -9,7 +9,7 @@ enabling seamless creation, addition, deletion, and updating of information rela
 
 # Overview
 
-The Property App project serves as a demonstration of my proficiency in Java, Maven, Spring Boot, React, Linux, Git, AWS, REST and my ability to deliver user-friendly and efficient solutions to real-world problems. The primary objective is to empower property management companies to oversee and manage information about their property locations for clients or business partners. By leveraging these technologies and frameworks, I aim to create a robust and scalable solution that streamlines property management processes and enhances organizational efficiency.
+The Property App project serves as a demonstration of my ability to deliver user-friendly and efficient solutions to real-world problems and is on my web portfolio. The primary objective is to empower property management companies to oversee and manage information about their property locations for clients or business partners. By leveraging technologies and frameworks, I aim to create a robust and scalable solution that streamlines property management processes and enhances organizational efficiency.
 
 # Features
 
@@ -24,3 +24,17 @@ The Property App project serves as a demonstration of my proficiency in Java, Ma
 3. Database Layer
    - Stores and manages data used by the application.
    - Utilizes Postgress database to persist information about clients, property locations, and other relevant data.
+  
+# Technologies
+
+1. Languages
+   - Java
+   - JSX
+2. Frameworks
+   - Spring Boot
+   - Material-UI
+3. Tools
+   - Git
+   - Linux
+   - AWS
+     
