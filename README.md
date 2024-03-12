@@ -9,7 +9,7 @@ enabling seamless creation, addition, deletion, and updating of information rela
 
 # Overview
 
-The Property App project serves as a demonstration of my ability to deliver user-friendly and efficient solutions to real-world problems and is showcased on my web portfolio. The primary objective is to empower property management companies to oversee and manage information about their property locations for clients or business partners. By leveraging technologies and frameworks, I aim to create a robust and scalable solution that streamlines property management processes and enhances organizational efficiency.
+The Property App project is showcased on my web portfolio and serves as a demonstration of my ability to deliver user-friendly and efficient solutions to real-world. The primary objective is to empower property management companies to oversee and manage information about their property locations for clients or business partners. By leveraging technologies and frameworks, I aim to create a robust and scalable solution that streamlines property management processes and enhances organizational efficiency.
 
 # Features
 
