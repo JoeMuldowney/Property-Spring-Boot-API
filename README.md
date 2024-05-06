@@ -29,10 +29,10 @@ The Property App project is showcased on my web portfolio and serves as a demons
 
 1. Languages
    - Java
-   - JSX
+   - 
 2. Frameworks
    - Spring Boot
-   - Material-UI
+   - 
 3. Tools
    - Git
    - Linux
