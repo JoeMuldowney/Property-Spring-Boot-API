@@ -43,7 +43,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                    sh 'docker run -d -p 8000:8000 --name propertybackend \
+                    sh 'docker run -d -p 8060:8060 --name propertybackend \
                     -e DATABASE=$DATABASE \
                     -e DATABASE_USERNAME=$DATABASE_USERNAME \
                     -e DATABASE_PASSWORD=$DATABASE_PASSWORD \
