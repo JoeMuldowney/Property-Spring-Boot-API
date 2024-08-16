@@ -15,11 +15,6 @@ WORKDIR /app
 # Copy the JAR file from the build stage
 COPY --from=build /app/target/Properties-0.0.1-SNAPSHOT.jar /app/myapp.jar
 # Expose the port the application runs on
-
-# Set environment variables for PostgreSQL configuration
-ENV SPRING_DATASOURCE_URL=jdbc:postgresql://postgres.ca82kaadrj5r.us-east-2.rds.amazonaws.com/PropertyApp
-ENV SPRING_DATASOURCE_USERNAME=postgres
-ENV SPRING_DATASOURCE_PASSWORD=postgres
-EXPOSE 8080
+EXPOSE 8060
 # Define the command to run the JAR file
-CMD ["java", "-jar", "myapp.jar"]
+CMD ["java", "-jar", "myapp.jar" ,"--server.port=8060"]
