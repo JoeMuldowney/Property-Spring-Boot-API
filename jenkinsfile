@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = '9f4187c3-8181-4d40-81d7-513dc9f140ce'
-        DATABASE = credentials('c6813de8-97ee-47fb-a177-473320d8234e')
+        DATABASE_URL = credentials('01882c80-57de-4a8c-9ea9-ebb12b47155a')
         DATABASE_USERNAME = credentials('5b7b4d1a-86b4-415e-8a31-29d2a1e43015')
         DATABASE_PASSWORD = credentials('d5761198-882a-4b7c-8732-6dcfa6fc0640')
 
@@ -44,7 +44,7 @@ pipeline {
         stage('Deploy') {
             steps {
                     sh 'docker run -d -p 8060:8060 --name propertybackend \
-                    -e DATABASE=$DATABASE \
+                    -e DATABASE_URL=$DATABASE_URL \
                     -e DATABASE_USERNAME=$DATABASE_USERNAME \
                     -e DATABASE_PASSWORD=$DATABASE_PASSWORD \
                     joemuldowney/property-backend'
