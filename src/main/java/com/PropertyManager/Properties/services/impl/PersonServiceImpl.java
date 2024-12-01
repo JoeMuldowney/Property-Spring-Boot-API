@@ -19,12 +19,19 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public PersonEntity savePerson(PersonEntity personEntity) {
+        // Retrieve the existing person entity from the database
+        PersonEntity existingEntity = personRepository.findById(personEntity.getId())
+                .orElseThrow(() -> new RuntimeException("Person not found"));
 
-    public PersonEntity savePerson(PersonEntity personEntity){
-        for (LocationEntity locationEntity : personEntity.getLocations()) {
-           locationEntity.setPerson(personEntity);
-        }
-        return personRepository.save(personEntity);
+        // Update only the fields of the person entity
+        existingEntity.setFirstName(personEntity.getFirstName());
+        existingEntity.setLastName(personEntity.getLastName());
+        existingEntity.setEmail(personEntity.getEmail());
+        existingEntity.setPhoneNumber(personEntity.getPhoneNumber());
+
+        // Save the updated person entity
+        return personRepository.save(existingEntity);
     }
 
     @Override
@@ -53,6 +60,9 @@ public class PersonServiceImpl implements PersonService {
 
             Optional.ofNullable(personEntity.getFirstName()).ifPresent(existingPerson::setFirstName);
             Optional.ofNullable(personEntity.getLastName()).ifPresent(existingPerson::setLastName);
+            Optional.ofNullable(personEntity.getPhoneNumber()).ifPresent(existingPerson::setPhoneNumber);
+            Optional.ofNullable(personEntity.getEmail()).ifPresent(existingPerson::setEmail);
+
             return personRepository.save(existingPerson);
         }).orElseThrow(() -> new RuntimeException("Person does not exist"));
     }

@@ -101,4 +101,17 @@ public class LocationController {
         locationService.deleteLocation(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+//    @GetMapping("/report")
+//    public ResponseEntity<List<LocationDto>> getLocationsByPriceRange(
+//            @RequestParam double lower,
+//            @RequestParam double upper) {
+//
+//        List<LocationEntity> locationEntities = locationService.findByPriceRange(lower, upper);
+//        List<LocationDto> locationDtos = locationEntities.stream()
+//                .map(entity -> new LocationDto(entity.getId(), entity.getName(), entity.getPrice()))
+//                .collect(Collectors.toList());
+//
+//        return new ResponseEntity<>(locationDtos, HttpStatus.OK);
+//    }
 }

@@ -21,6 +21,8 @@ public class PersonEntity {
     private Long id;
     private String firstName;
     private String lastName;
+    private String phoneNumber;
+    private String email;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)

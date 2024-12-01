@@ -19,6 +19,7 @@ public class LocationServiceImpl implements LocationService {
     private PersonRepository personRepository;
 
 
+
     public LocationServiceImpl(LocationRepository locationRepository, PersonRepository personRepository) {
         this.locationRepository = locationRepository;
         this.personRepository = personRepository;
@@ -51,6 +52,11 @@ public class LocationServiceImpl implements LocationService {
                 .stream(locationRepository.findAll().spliterator(),
                         false)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LocationEntity> findByPriceRange(double lower, double upper) {
+        return locationRepository.findByPriceBetween(lower, upper);
     }
 
     @Override

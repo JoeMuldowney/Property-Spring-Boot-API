@@ -12,6 +12,8 @@ public interface LocationService {
 
     List<LocationEntity> findAll();
 
+    List<LocationEntity> findByPriceRange(double lower, double upper);
+
     Optional<LocationEntity> findOne(Long id);
 
     boolean isExists(Long id);
