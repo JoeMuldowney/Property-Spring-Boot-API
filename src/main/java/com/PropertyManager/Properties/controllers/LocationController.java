@@ -35,13 +35,13 @@ public class LocationController {
     }
 
 
-    @PutMapping("backend/location/{id}")
+    @PutMapping("/location/{id}")
     public ResponseEntity<LocationDto> fullUpdateLocation(
             @PathVariable("id") Long id,
             @RequestBody LocationDto locationDto) {
 
         boolean locationExists = locationService.isExists(id);
-        
+
 
         LocationEntity locationEntity = locationMapper.mapFrom(locationDto);
         LocationEntity savedLocationEntity = locationService.fullUpdateLocation(id, locationEntity);
@@ -53,7 +53,7 @@ public class LocationController {
             return new ResponseEntity<>(savedUpdatedLocationDto, HttpStatus.CREATED);
         }
     }
-    @PostMapping("backend/location/{id}")
+    @PostMapping("/location/{id}")
     public ResponseEntity<LocationDto> addLocation(
             @PathVariable("id") Long personId,
             @RequestBody LocationDto locationDto){
@@ -66,23 +66,23 @@ public class LocationController {
 
     }
 
-    @GetMapping(path = "backend/location")
+    @GetMapping(path = "/location")
     public List<LocationDto> listLocation(){
         List<LocationEntity> location = locationService.findAll();
         return location.stream().map(locationMapper::mapTo).collect(Collectors.toList());
     }
 
-    @GetMapping(path = "backend/location/{id}")
+    @GetMapping(path = "/location/{id}")
     public ResponseEntity<LocationDto> getLocation(@PathVariable("id") Long id){
 
         Optional<LocationEntity> foundLocation = locationService.findOne(id);
         return foundLocation.map(locationEntity -> {
             LocationDto locationDto =  locationMapper.mapTo(locationEntity);
             return new ResponseEntity<>(locationDto, HttpStatus.OK);
-            }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PatchMapping(path = "backend/location/{id}")
+    @PatchMapping(path = "/location/{id}")
     public ResponseEntity<LocationDto> partialUpdateLocation (
             @PathVariable("id")Long id,
             @RequestBody LocationDto locationDto){
@@ -96,9 +96,22 @@ public class LocationController {
 
     }
 
-    @DeleteMapping(path = "backend/location/{id}")
+    @DeleteMapping(path = "/location/{id}")
     public ResponseEntity deleteLocation(@PathVariable("id")long id){
         locationService.deleteLocation(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+//    @GetMapping("/report")
+//    public ResponseEntity<List<LocationDto>> getLocationsByPriceRange(
+//            @RequestParam double lower,
+//            @RequestParam double upper) {
+//
+//        List<LocationEntity> locationEntities = locationService.findByPriceRange(lower, upper);
+//        List<LocationDto> locationDtos = locationEntities.stream()
+//                .map(entity -> new LocationDto(entity.getId(), entity.getName(), entity.getPrice()))
+//                .collect(Collectors.toList());
+//
+//        return new ResponseEntity<>(locationDtos, HttpStatus.OK);
+//    }
 }

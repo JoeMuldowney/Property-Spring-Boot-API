@@ -19,6 +19,8 @@ public class PersonDto {
     private String firstName;
 
     private String lastName;
+    private String phoneNumber;
+    private String email;
 
     private List<LocationEntity> locations = new ArrayList<>();
 
