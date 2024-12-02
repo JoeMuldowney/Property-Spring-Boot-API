@@ -25,7 +25,7 @@ public class PersonController {
 
     }
 
-    @PostMapping(path = "/person")
+    @PostMapping(path = "backend/person")
     public ResponseEntity<PersonDto> createPerson(
             @RequestBody PersonDto personDto){
 
@@ -35,7 +35,7 @@ public class PersonController {
         return new ResponseEntity<>(personMapper.mapTo(savedPersonEntity), HttpStatus.CREATED);
     }
 
-    @GetMapping(path = "/person")
+    @GetMapping(path = "backend/person")
     public ResponseEntity<List<PersonDto>> listPerson(){
 
         List<PersonEntity> personEntities = personService.findAll();
@@ -46,7 +46,7 @@ public class PersonController {
         return new ResponseEntity<>(personDto, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/person/{id}")
+    @GetMapping(path = "backend/person/{id}")
     public ResponseEntity<PersonDto> getPerson(@PathVariable("id")Long id){
         Optional<PersonEntity> foundPerson = personService.findPerson(id);
         return foundPerson.map(personEntity -> {
@@ -56,7 +56,7 @@ public class PersonController {
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
-    @PutMapping(path = "/person/{id}")
+    @PutMapping(path = "backend/person/{id}")
 
     public ResponseEntity<PersonDto> fullUpdatePerson(
             @PathVariable("id") Long id,
@@ -70,7 +70,7 @@ public class PersonController {
         PersonEntity savedPersonEntity = personService.savePerson(personEntity);
         return new ResponseEntity<>(personMapper.mapTo(savedPersonEntity), HttpStatus.OK);
     }
-    @PatchMapping(path = "/person/{id}")
+    @PatchMapping(path = "backend/person/{id}")
     public ResponseEntity<PersonDto> partialUpdate(
             @PathVariable("id") Long id,
             @RequestBody PersonDto personDto){
@@ -82,7 +82,7 @@ public class PersonController {
         PersonEntity updatedPersonEntity = personService.partialUpdate(id, personEntity);
         return new ResponseEntity<>(personMapper.mapTo(updatedPersonEntity),HttpStatus.OK);
     }
-    @DeleteMapping(path = "/person/{id}")
+    @DeleteMapping(path = "backend/person/{id}")
     public ResponseEntity deletePerson(
             @PathVariable("id") Long id){
         personService.deletePerson(id);

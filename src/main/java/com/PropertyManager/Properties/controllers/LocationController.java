@@ -35,7 +35,7 @@ public class LocationController {
     }
 
 
-    @PutMapping("/location/{id}")
+    @PutMapping("backend/location/{id}")
     public ResponseEntity<LocationDto> fullUpdateLocation(
             @PathVariable("id") Long id,
             @RequestBody LocationDto locationDto) {
@@ -53,7 +53,7 @@ public class LocationController {
             return new ResponseEntity<>(savedUpdatedLocationDto, HttpStatus.CREATED);
         }
     }
-    @PostMapping("/location/{id}")
+    @PostMapping("backend/location/{id}")
     public ResponseEntity<LocationDto> addLocation(
             @PathVariable("id") Long personId,
             @RequestBody LocationDto locationDto){
@@ -66,13 +66,13 @@ public class LocationController {
 
     }
 
-    @GetMapping(path = "/location")
+    @GetMapping(path = "backend/location")
     public List<LocationDto> listLocation(){
         List<LocationEntity> location = locationService.findAll();
         return location.stream().map(locationMapper::mapTo).collect(Collectors.toList());
     }
 
-    @GetMapping(path = "/location/{id}")
+    @GetMapping(path = "backend/location/{id}")
     public ResponseEntity<LocationDto> getLocation(@PathVariable("id") Long id){
 
         Optional<LocationEntity> foundLocation = locationService.findOne(id);
@@ -82,7 +82,7 @@ public class LocationController {
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PatchMapping(path = "/location/{id}")
+    @PatchMapping(path = "backend/location/{id}")
     public ResponseEntity<LocationDto> partialUpdateLocation (
             @PathVariable("id")Long id,
             @RequestBody LocationDto locationDto){
@@ -96,7 +96,7 @@ public class LocationController {
 
     }
 
-    @DeleteMapping(path = "/location/{id}")
+    @DeleteMapping(path = "backend/location/{id}")
     public ResponseEntity deleteLocation(@PathVariable("id")long id){
         locationService.deleteLocation(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
