@@ -35,25 +35,25 @@ public class LocationController {
     }
 
 
-    @PutMapping("backend/location/{id}")
-    public ResponseEntity<LocationDto> fullUpdateLocation(
-            @PathVariable("id") Long id,
-            @RequestBody LocationDto locationDto) {
-
-        boolean locationExists = locationService.isExists(id);
-
-
-        LocationEntity locationEntity = locationMapper.mapFrom(locationDto);
-        LocationEntity savedLocationEntity = locationService.fullUpdateLocation(id, locationEntity);
-        LocationDto savedUpdatedLocationDto = locationMapper.mapTo(savedLocationEntity);
-
-        if (locationExists) {
-            return new ResponseEntity<>(savedUpdatedLocationDto, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(savedUpdatedLocationDto, HttpStatus.CREATED);
-        }
-    }
-    @PostMapping("backend/location/{id}")
+//    @PutMapping("backend/location/{id}")
+//    public ResponseEntity<LocationDto> fullUpdateLocation(
+//            @PathVariable("id") Long id,
+//            @RequestBody LocationDto locationDto) {
+//
+//        boolean locationExists = locationService.isExists(id);
+//
+//
+//        LocationEntity locationEntity = locationMapper.mapFrom(locationDto);
+//        LocationEntity savedLocationEntity = locationService.fullUpdateLocation(id, locationEntity);
+//        LocationDto savedUpdatedLocationDto = locationMapper.mapTo(savedLocationEntity);
+//
+//        if (locationExists) {
+//            return new ResponseEntity<>(savedUpdatedLocationDto, HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>(savedUpdatedLocationDto, HttpStatus.CREATED);
+//        }
+//    }
+    @PostMapping("backend/addlocation/{id}")
     public ResponseEntity<LocationDto> addLocation(
             @PathVariable("id") Long personId,
             @RequestBody LocationDto locationDto){
@@ -66,13 +66,13 @@ public class LocationController {
 
     }
 
-    @GetMapping(path = "backend/location")
+    @GetMapping(path = "backend/findalllocation")
     public List<LocationDto> listLocation(){
         List<LocationEntity> location = locationService.findAll();
         return location.stream().map(locationMapper::mapTo).collect(Collectors.toList());
     }
 
-    @GetMapping(path = "backend/location/{id}")
+    @GetMapping(path = "backend/findlocation/{id}")
     public ResponseEntity<LocationDto> getLocation(@PathVariable("id") Long id){
 
         Optional<LocationEntity> foundLocation = locationService.findOne(id);
@@ -82,7 +82,7 @@ public class LocationController {
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PatchMapping(path = "backend/location/{id}")
+    @PatchMapping(path = "backend/updatelocation/{id}")
     public ResponseEntity<LocationDto> partialUpdateLocation (
             @PathVariable("id")Long id,
             @RequestBody LocationDto locationDto){
@@ -96,22 +96,30 @@ public class LocationController {
 
     }
 
-    @DeleteMapping(path = "backend/location/{id}")
+    @DeleteMapping(path = "backend/deletelocation/{id}")
     public ResponseEntity deleteLocation(@PathVariable("id")long id){
         locationService.deleteLocation(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-//    @GetMapping("/report")
-//    public ResponseEntity<List<LocationDto>> getLocationsByPriceRange(
-//            @RequestParam double lower,
-//            @RequestParam double upper) {
-//
-//        List<LocationEntity> locationEntities = locationService.findByPriceRange(lower, upper);
-//        List<LocationDto> locationDtos = locationEntities.stream()
-//                .map(entity -> new LocationDto(entity.getId(), entity.getName(), entity.getPrice()))
-//                .collect(Collectors.toList());
-//
-//        return new ResponseEntity<>(locationDtos, HttpStatus.OK);
-//    }
+    @GetMapping("backend/pricereport")
+    public ResponseEntity<List<LocationDto>> getLocationsByPriceRange(
+            @RequestParam double lower,
+            @RequestParam double upper) {
+        List<LocationEntity> locations = locationService.findByPriceRange(lower, upper);
+        List<LocationDto> locationDtos = locations.stream()
+                .map(locationMapper::mapTo)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(locationDtos, HttpStatus.OK);
+    }
+
+    @GetMapping("backend/statereport")
+    public ResponseEntity<List<LocationDto>> getLocationsByState(
+            @RequestParam String state) {
+        List<LocationEntity> locations = locationService.findAllByState(state);
+        List<LocationDto> locationDtos = locations.stream()
+                .map(locationMapper::mapTo)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(locationDtos, HttpStatus.OK);
+    }
 }

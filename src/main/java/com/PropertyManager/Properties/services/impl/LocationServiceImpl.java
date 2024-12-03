@@ -73,6 +73,8 @@ public class LocationServiceImpl implements LocationService {
     public LocationEntity partialUpdate(Long id, LocationEntity locationEntity) {
         locationEntity.setId(id);
         return locationRepository.findById(id).map(existingLocation ->{
+            Optional.ofNullable(locationEntity.getStreet()).ifPresent(existingLocation::setStreet);
+            Optional.ofNullable(locationEntity.getState()).ifPresent(existingLocation::setState);
             Optional.ofNullable(locationEntity.getCity()).ifPresent(existingLocation::setCity);
             Optional.ofNullable(locationEntity.getZipCode()).ifPresent(existingLocation::setZipCode);
             Optional.ofNullable(locationEntity.getPrice()).ifPresent(existingLocation::setPrice);
@@ -84,6 +86,16 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public void deleteLocation(long id) {
         locationRepository.deleteById(id);
+    }
+
+    @Override
+    public List<LocationEntity> findByPriceRange(double lower, double upper) {
+        return locationRepository.findByPriceBetween(lower, upper);
+    }
+
+    @Override
+    public List<LocationEntity> findAllByState(String state) {
+        return locationRepository.findByState(state);
     }
 
 

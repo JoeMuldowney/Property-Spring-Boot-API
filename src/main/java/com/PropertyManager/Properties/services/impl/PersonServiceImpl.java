@@ -20,18 +20,10 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonEntity savePerson(PersonEntity personEntity) {
-        // Retrieve the existing person entity from the database
-        PersonEntity existingEntity = personRepository.findById(personEntity.getId())
-                .orElseThrow(() -> new RuntimeException("Person not found"));
 
-        // Update only the fields of the person entity
-        existingEntity.setFirstName(personEntity.getFirstName());
-        existingEntity.setLastName(personEntity.getLastName());
-        existingEntity.setEmail(personEntity.getEmail());
-        existingEntity.setPhoneNumber(personEntity.getPhoneNumber());
 
         // Save the updated person entity
-        return personRepository.save(existingEntity);
+        return personRepository.save(personEntity);
     }
 
     @Override

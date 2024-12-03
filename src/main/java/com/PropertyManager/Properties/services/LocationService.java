@@ -26,5 +26,7 @@ public interface LocationService {
 
     LocationEntity saveNewLocation(Long personId, LocationEntity locationEntity);
 
+    List<LocationEntity> findByPriceRange(double lower, double upper);
 
+    List<LocationEntity> findAllByState(String state);
 }

@@ -25,7 +25,7 @@ public class PersonController {
 
     }
 
-    @PostMapping(path = "backend/person")
+    @PostMapping(path = "backend/addperson")
     public ResponseEntity<PersonDto> createPerson(
             @RequestBody PersonDto personDto){
 
@@ -35,7 +35,7 @@ public class PersonController {
         return new ResponseEntity<>(personMapper.mapTo(savedPersonEntity), HttpStatus.CREATED);
     }
 
-    @GetMapping(path = "backend/person")
+    @GetMapping(path = "backend/findallperson")
     public ResponseEntity<List<PersonDto>> listPerson(){
 
         List<PersonEntity> personEntities = personService.findAll();
@@ -46,7 +46,7 @@ public class PersonController {
         return new ResponseEntity<>(personDto, HttpStatus.OK);
     }
 
-    @GetMapping(path = "backend/person/{id}")
+    @GetMapping(path = "backend/findperson/{id}")
     public ResponseEntity<PersonDto> getPerson(@PathVariable("id")Long id){
         Optional<PersonEntity> foundPerson = personService.findPerson(id);
         return foundPerson.map(personEntity -> {
@@ -56,21 +56,8 @@ public class PersonController {
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
-    @PutMapping(path = "backend/person/{id}")
 
-    public ResponseEntity<PersonDto> fullUpdatePerson(
-            @PathVariable("id") Long id,
-            @RequestBody PersonDto personDto){
-        if(!personService.isExists(id)){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        personDto.setId(id);
-        PersonEntity personEntity = personMapper.mapFrom(personDto);
-        PersonEntity savedPersonEntity = personService.savePerson(personEntity);
-        return new ResponseEntity<>(personMapper.mapTo(savedPersonEntity), HttpStatus.OK);
-    }
-    @PatchMapping(path = "backend/person/{id}")
+    @PatchMapping(path = "backend/updateperson/{id}")
     public ResponseEntity<PersonDto> partialUpdate(
             @PathVariable("id") Long id,
             @RequestBody PersonDto personDto){
@@ -82,7 +69,7 @@ public class PersonController {
         PersonEntity updatedPersonEntity = personService.partialUpdate(id, personEntity);
         return new ResponseEntity<>(personMapper.mapTo(updatedPersonEntity),HttpStatus.OK);
     }
-    @DeleteMapping(path = "backend/person/{id}")
+    @DeleteMapping(path = "backend/deleteperson/{id}")
     public ResponseEntity deletePerson(
             @PathVariable("id") Long id){
         personService.deletePerson(id);
