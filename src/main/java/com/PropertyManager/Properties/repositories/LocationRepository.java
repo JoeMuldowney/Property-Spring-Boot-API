@@ -9,4 +9,7 @@ import java.util.List;
 public interface LocationRepository extends CrudRepository<LocationEntity, Long> {
 
     List<LocationEntity> findByPriceBetween(double lower, double upper);
+    List<LocationEntity> findByState(String state);
+
+
 }
